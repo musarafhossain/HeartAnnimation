@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Animation on Mousemove and Touch</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <script>
+        // Append Element with Distance of 100px
+        let prevMouseX = null;
+        let prevMouseY = null;
+        let isTouching = false;
+
+        function handleMove(x, y) {
+            if (prevMouseX !== null && prevMouseY !== null) {
+                let deltaX = x - prevMouseX;
+                let deltaY = y - prevMouseY;
+                let distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                if (distance >= 100) {
+                    createHearts(x, y);
+                    prevMouseX = x;
+                    prevMouseY = y;
+                }
+            } else {
+                createHearts(x, y);
+                prevMouseX = x;
+                prevMouseY = y;
+            }
+        }
+
+        function createHearts(x, y) {
+            let i = document.createElement('i');
+            document.body.appendChild(i);
+            i.style.top = y + 'px';
+            i.style.left = x + 'px';
+            i.classList.add('bx', 'bxs-heart');
+            i.style.color = '#f00'
+            i.style.scale = `${Math.random() * 2 + 3}`;
+            i.style.setProperty('--x', getRandomValue());
+            i.style.setProperty('--y', getRandomValue());
+            setTimeout(() => {
+                document.body.removeChild(i);
+            }, 3000);
+        }
+
+        function getRandomValue(){
+            return `${Math.random() * 400 -200}px`;
+        }
+
+        // Mousemove event
+        document.addEventListener('mousemove', (event) => {
+            handleMove(event.pageX, event.pageY);
+        });
+
+        // Touch events for mobile
+        document.addEventListener('touchstart', (event) => {
+            isTouching = true;
+            let touch = event.touches[0];
+            handleMove(touch.pageX, touch.pageY);
+        });
+
+        document.addEventListener('touchmove', (event) => {
+            if (isTouching) {
+                let touch = event.touches[0];
+                handleMove(touch.pageX, touch.pageY);
+            }
+        });
+
+        document.addEventListener('touchend', () => {
+            isTouching = false;
+            prevMouseX = null;
+            prevMouseY = null;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100vh;
+    overflow: hidden; 
+    overflow-x: hidden; 
+    overflow-y: hidden; 
+    position: relative;
+}
+
+body {
+    background: radial-gradient(#4c0c0c, #250707);
+    touch-action: none; 
+}
+
+i {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(5px 5px 5px #000) drop-shadow(0px 0px 10px #f00);
+    pointer-events: none;
+    animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y));
+    }
+}

@@ -39,3 +39,13 @@ i {
         transform: translate(var(--x), var(--y));
     }
 }
+
+
+.stamp {
+    position: absolute;
+    color: #fff;
+    font-family: sans-serif;
+    bottom: 0;
+    right: 0;  
+    padding: 10px;
+}
